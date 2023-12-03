@@ -1,0 +1,63 @@
+<div class="container mt-2">
+  <div class="row my-2">
+    <div class="col text-center">
+      <a class="btn btn-primary" routerLink="/add-smax">Create Start</a>
+    </div>
+  </div>
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col d-flex align-items-stretch" *ngFor="let item of smaxs">
+          <div class="card">
+            <img src="{{item.imageUrl}}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{item.name}}</h5>
+              <p class="card-text"><b>Franchise:</b> {{item.franchise}}</p>
+              <p class="card-text"><b>Power:</b> {{item.powers}}</p>
+            </div>
+            <div class="card-body">
+              <a class="btn btn-primary mx-2" [routerLink]="['edit-smax', item._id]">Edit</a>
+              <a class="btn btn-primary mx-2">Xem chi tiết</a>
+              <button type="button" (click)="openDeletePopup(item._id)" class="btn btn-danger mx-2" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                Xóa
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <section class="bg-light pt-5 pb-5 shadow-sm">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-4 mb-3 d-flex align-items-stretch" *ngFor="let item of smaxs">
+              <div class="card">
+                <img src="{{item.imageUrl}}" class="card-img-top" alt="Card Image">
+                <div class="card-body d-flex flex-column">
+                  <h5 class="card-title">{{item.name}}</h5>
+                  <p class="card-text mb-4">{{item.franchise}}</p>
+                  <a href="#" class="btn btn-primary mt-auto align-self-start">Book now</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section> -->
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="deleteModalLabel">Thông báo</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Bạn có chắc chắn muốn xóa Idol này ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thôi</button>
+        <button type="button" (click)="delete()" class="btn btn-danger">Chắc chắn xóa</button>
+      </div>
+    </div>
+  </div>
+</div>

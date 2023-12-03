@@ -1,0 +1,51 @@
+<div class="container mt-2">
+  <legend>Create</legend>
+  <form>
+    <div class="mb-3">
+      <label for="txtName" class="form-label">Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="txtName"
+        aria-describedby="emailHelp"
+        name="name"
+        [(ngModel)]="smaxs.name"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="txtFranchise" class="form-label">Franchise</label>
+      <input
+        type="text"
+        class="form-control"
+        id="txtFanchise"
+        aria-describedby="emailHelp"
+        name="franchise"
+        [(ngModel)]="smaxs.franchise"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="txtImageUrl" class="form-label">Image URL</label>
+      <input
+        type="text"
+        class="form-control"
+        id="txtImageUrl"
+        aria-describedby="emailHelp"
+        name="imageurl"
+        [(ngModel)]="smaxs.imageUrl"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="txtPowers" class="form-label">Powers</label>
+
+      <textarea
+        class="form-control"
+        id="txtPowers"
+        rows="3"
+        name="powers"
+        [(ngModel)]="smaxs.powers"
+      ></textarea>
+    </div>
+    <button type="button" class="btn btn-primary" (click)="create()">Create</button>
+  </form>
+</div>
