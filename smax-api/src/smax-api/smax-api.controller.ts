@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { SmaxApiService } from './smax-api.service';
 import { SmaxApiS } from './schema/smax-api.schema';

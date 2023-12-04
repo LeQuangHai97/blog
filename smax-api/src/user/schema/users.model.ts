@@ -1,11 +1,12 @@
-/* eslint-disable prettier/prettier */
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { IsNotEmpty } from 'class-validator';
 import { HydratedDocument } from 'mongoose';
 
 export type UserDocument = HydratedDocument<User>;
 
 @Schema({ collection: 'users' })
 export class User {
+  @IsNotEmpty()
   @Prop()
   username: string;
 

@@ -41,7 +41,7 @@ export class UsersService {
   // }
 
   // async getUser(query: object): Promise<User> {
-  //   return this.UserModel.findOne(query);
+  //   return this.userModel.findOne(query);
   // }
 
   async getUser(userName: string) {
@@ -62,6 +62,7 @@ export class UsersService {
       }
       const payload = { userId: user._id };
       const token = this.jwtService.sign(payload);
+      console.log('đăng nhập thành công')
       return token;
     } catch (error) {
       console.log(error);

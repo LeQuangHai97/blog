@@ -37,6 +37,7 @@ export class UsersController {
   ): Promise<{ message: string; token: string }> {
     const { username, password } = body;
     const token = await this.usersService.loginUser(username, password);
+    
     return { message: 'Login successful', token };
   }
 }

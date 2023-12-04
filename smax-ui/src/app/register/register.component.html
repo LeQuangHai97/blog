@@ -23,9 +23,22 @@
               name="name"
               id="name"
               class="form-control form-control-lg"
+              required
+              minlength="4"
               placeholder="Tên đăng nhập"
               [(ngModel)]="user.username"
             />
+            <!-- <div
+              *ngIf="name.invalid && (name.dirty || name.touched)"
+              class="alert"
+            >
+              <div *ngIf="name.errors?.['required']">
+                Tên đăng nhập không được để trống
+              </div>
+              <div *ngIf="name.errors?.['minlength']">
+                Tên đăng nhập tối thiểu 4 kí tự
+              </div>
+            </div> -->
           </div>
 
           <!-- Email input -->
@@ -37,7 +50,6 @@
               class="form-control form-control-lg"
               placeholder="Email"
               [(ngModel)]="user.email"
-
             />
           </div>
 
@@ -50,7 +62,6 @@
               class="form-control form-control-lg"
               placeholder="Password"
               [(ngModel)]="user.password"
-
             />
           </div>
 
