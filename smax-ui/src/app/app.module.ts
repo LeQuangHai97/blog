@@ -10,6 +10,8 @@ import { AddSmaxComponent } from './smax/add-smax/add-smax.component';
 import { FormsModule } from '@angular/forms';
 import { EditSmaxComponent } from './smax/edit-smax/edit-smax.component';
 import { RegisterComponent } from './register/register.component';
+import { LogoutComponent } from './logout/logout.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { RegisterComponent } from './register/register.component';
     AddSmaxComponent,
     EditSmaxComponent,
     RegisterComponent,
+    LogoutComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,

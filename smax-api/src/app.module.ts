@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { SmaxApiModule } from './smax-api/smax-api.module';
 import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { UserModule } from './user/user.module';
     SmaxApiModule,
     ConfigModule.forRoot({ isGlobal: true }),
     UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -6,7 +6,7 @@ export type UserDocument = HydratedDocument<User>;
 
 @Schema({ collection: 'users' })
 export class User {
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'Tên tài khoản không được để trống !'})
   @Prop()
   username: string;
 

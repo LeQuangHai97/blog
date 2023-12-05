@@ -1,27 +1,41 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  Post,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { UsersService } from './user.service';
 import { User } from './schema/users.model';
 import * as bcrypt from 'bcrypt';
+import { RegisterDto } from 'src/auth/dto/register.dto';
 
 @Controller()
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Post('/signup')
+  @HttpCode(200)
+  @UsePipes(ValidationPipe)
   async createUser(
-    @Body('username') username: string,
-    @Body('email') email: string,
-    @Body('password') password: string,
-    @Body('role') role: string,
+    // @Body('username') username: string,
+    // @Body('email') email: string,
+    // @Body('password') password: string,
+    // @Body('role') role: string,
+    @Body(ValidationPipe) registerDto: RegisterDto,
   ): Promise<User> {
     const saltOrRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltOrRounds);
+    const hashedPassword = await bcrypt.hash(
+      registerDto.password,
+      saltOrRounds,
+    );
     console.log(hashedPassword);
     const result = await this.usersService.createUser(
-      username,
-      email,
+      registerDto.username,
+      registerDto.email,
       hashedPassword,
-      role,
+      registerDto.role,
     );
     return result;
   }
@@ -37,7 +51,7 @@ export class UsersController {
   ): Promise<{ message: string; token: string }> {
     const { username, password } = body;
     const token = await this.usersService.loginUser(username, password);
-    
+
     return { message: 'Login successful', token };
   }
 }

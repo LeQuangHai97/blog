@@ -5,26 +5,34 @@ import { AddSmaxComponent } from './smax/add-smax/add-smax.component';
 import { EditSmaxComponent } from './smax/edit-smax/edit-smax.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { LogoutComponent } from './logout/logout.component';
 
-const routes: Routes = [{
-  path:'',
-  component: AllSmaxComponent,
-},{
-  path:'add-smax',
-  component: AddSmaxComponent,
-},{
-  path:'edit-smax/:id',
-  component: EditSmaxComponent,
-},{
-  path:'login',
-  component: LoginComponent,
-},{
-  path:'register',
-  component: RegisterComponent,
-}];
+const routes: Routes = [
+  {
+    path: '',
+    component: AllSmaxComponent,
+  },
+  {
+    path: 'add-smax',
+    component: AddSmaxComponent,
+  },
+  {
+    path: 'edit-smax/:id',
+    component: EditSmaxComponent,
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
+  },
+  { path: 'logout', component: LogoutComponent },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

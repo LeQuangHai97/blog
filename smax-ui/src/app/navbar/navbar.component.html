@@ -1,0 +1,32 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">All Star</a>
+    <div class="">
+      <button
+        *ngIf="!(isLoggedIn$ | async)"
+        class="btn btn-outline-success mx-2"
+        routerLink="/login"
+        type="submit"
+      >
+        Đăng nhập
+      </button>
+      <button
+        *ngIf="!(isLoggedIn$ | async)"
+        class="btn btn-outline-success mx-2"
+        routerLink="/register"
+        type="submit"
+      >
+        Đăng kí
+      </button>
+      <button
+        *ngIf="isLoggedIn$ | async"
+        routerLink="/logout"
+        class="btn btn-outline-success mx-2"
+        routerLink="/logout"
+        type="submit"
+      >
+        Đăng xuất
+      </button>
+    </div>
+  </div>
+</nav>

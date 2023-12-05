@@ -27,6 +27,10 @@ export class UsersService {
     password: string,
     role: string,
   ): Promise<User> {
+    const existingUser = await this.userModel.findOne({ username });
+    if (existingUser) {
+      throw new Error('Tên đã được sử dụng.');
+    }
     return this.userModel.create({
       username,
       email,
@@ -60,13 +64,26 @@ export class UsersService {
       if (!passwordMatch) {
         throw new UnauthorizedException('Invalid login credentials');
       }
-      const payload = { userId: user._id };
+      const payload = {username: user.username, userId: user._id };
       const token = this.jwtService.sign(payload);
-      console.log('đăng nhập thành công')
+      console.log('đăng nhập thành công');
       return token;
     } catch (error) {
       console.log(error);
       throw new UnauthorizedException('An error occurred while logging in');
     }
   }
+
+  async findById(id: string): Promise<User> {
+    try {
+      const user = await this.userModel.findById(id).exec();
+      if (!user) {
+        throw new NotFoundException('User not found');
+      }
+      return user;
+    } catch (error) {
+      throw new NotFoundException('User not found');
+    }
+  }
+
 }
