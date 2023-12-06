@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   };
 
   login() {
-    this.userService.login(this.user).subscribe(
+    this.authService.login(this.user).subscribe(
     (response) => {
       console.log(response.message);
       this.authService.isLoggedIn$.next(true);

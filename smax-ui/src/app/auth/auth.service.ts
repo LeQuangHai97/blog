@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { LoginUser } from '../login/login-user';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -19,22 +18,35 @@ export class AuthService {
 
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {}
 
+  // login(user: LoginUser) {
+  //   this.isLoggedIn$.next(true);
+  //   return this.http.post(`${this.baseUrl}/auth/login`, user);
+  // }
+
   login(user: LoginUser) {
     this.isLoggedIn$.next(true);
-    return this.http.post(`${this.baseUrl}/auth/login`, user);
+    return this.http.post(`${this.baseUrl}/login`, user).pipe(
+      tap(
+        (response: any) => {
+          if (response && response.access_token) {
+            const { message, access_token, username} = response;
+            const decodedToken = this.jwtHelper.decodeToken(access_token);
+            if (decodedToken) {
+              localStorage.setItem('currentUser', JSON.stringify(decodedToken));
+            } else {
+              console.error('Failed to decode token.');
+            }
+          } else {
+            console.error('Invalid response format.');
+          }
+        },
+        (error) => {
+          console.error('Login failed', error);
+          // Xử lý lỗi đăng nhập
+        }
+      )
+    );
   }
-
-  // login(user: LoginUser): Observable<any> {
-  //   return this.http.post<any>(`${this.baseUrl}/auth/login`, user).pipe(
-  //     tap((response) => {
-  //       const { access_token } = response;
-  //       const decodedToken = this.jwtHelper.decodeToken(access_token);
-  //       // Lưu thông tin người dùng vào local storage hoặc biến trạng thái
-  //       localStorage.setItem('currentUser', JSON.stringify(decodedToken));
-  //       this.isLoggedIn$.next(true);
-  //     })
-  //   );
-  // }
 
   logout(): Observable<any> {
     this.isLoggedIn$.next(false);

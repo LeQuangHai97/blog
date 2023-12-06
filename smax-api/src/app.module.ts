@@ -10,7 +10,7 @@ import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
     MongooseModule.forRoot(
-      'mongodb+srv://project-blog:03121997@cluster0.4h84d.mongodb.net/smax?retryWrites=true&w=majority',
+      'mongodb+srv://project-blog:121212ab@cluster0.4h84d.mongodb.net/smax?retryWrites=true&w=majority',
     ),
     SmaxApiModule,
     ConfigModule.forRoot({ isGlobal: true }),
