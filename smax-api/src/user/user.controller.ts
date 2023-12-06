@@ -48,10 +48,9 @@ export class UsersController {
   @Post('/login')
   async loginUser(
     @Body() body: { username: string; password: string },
-  ): Promise<{ message: string; token: string }> {
+  ): Promise<{ message: string; access_token: string }> {
     const { username, password } = body;
     const token = await this.usersService.loginUser(username, password);
-
-    return { message: 'Login successful', token };
+    return { message: 'Login successful', access_token: token };
   }
 }

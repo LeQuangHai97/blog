@@ -66,7 +66,6 @@ export class UsersService {
       }
       const payload = {username: user.username, userId: user._id };
       const token = this.jwtService.sign(payload);
-      console.log('đăng nhập thành công');
       return token;
     } catch (error) {
       console.log(error);

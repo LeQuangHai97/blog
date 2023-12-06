@@ -3,6 +3,7 @@ import { UserService } from '../service/user.service';
 import { Router } from '@angular/router';
 import { LoginUser } from './login-user';
 import { AuthService } from '../auth/auth.service';
+import { AuthResponse } from '../interface/auth-response.interface';
 
 @Component({
   selector: 'app-login',
@@ -26,10 +27,16 @@ export class LoginComponent implements OnInit {
   };
 
   login() {
-    this.userService.login(this.user).subscribe(() => {
-      this.authService.isLoggedIn$.next(true);
-      console.log(this.user);
-      this.router.navigate(['/']);
-    });
+    this.userService.login(this.user).subscribe(
+      () => {
+        this.authService.isLoggedIn$.next(true);
+        console.log(this.user);
+        this.router.navigate(['/']);
+      },
+      (error) => {
+        console.error('Login failed', error);
+        // Handle login failure
+      }
+    );
   }
 }
