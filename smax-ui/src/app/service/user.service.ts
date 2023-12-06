@@ -18,7 +18,7 @@ export class UserService {
     return this.http.post('http://localhost:3000/login', user)
     .pipe(
       tap((response: any) => {
-        const { access_token } = response;
+        const { access_token, message } = response;
         localStorage.setItem('access_token', access_token);
       }),
     );

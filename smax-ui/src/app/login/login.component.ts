@@ -28,15 +28,15 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.userService.login(this.user).subscribe(
-      () => {
-        this.authService.isLoggedIn$.next(true);
-        console.log(this.user);
-        this.router.navigate(['/']);
-      },
-      (error) => {
-        console.error('Login failed', error);
-        // Handle login failure
-      }
+    (response) => {
+      console.log(response.message);
+      this.authService.isLoggedIn$.next(true);
+      this.router.navigate(['/']);
+    },
+    (error) => {
+      console.error('Login failed', error);
+      this.router.navigate(['/login']);
+    }
     );
   }
 }

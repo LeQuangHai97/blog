@@ -14,10 +14,10 @@ export class NavbarComponent implements OnInit {
     this.authService.isLoggedIn.subscribe((loggedIn) => {
       if (loggedIn) {
         // Đã đăng nhập, cập nhật thông tin người dùng
-        const storedUser = localStorage.getItem('currentUser');
+        const storedUser = localStorage.getItem('access_token');
 
         if (storedUser !== null) {
-          this.currentUser = JSON.parse(storedUser);
+          this.currentUser = storedUser;
         } else {
           // Xử lý trường hợp 'currentUser' không tồn tại trong localStorage
           console.error('No user information found in localStorage.');
@@ -28,4 +28,5 @@ export class NavbarComponent implements OnInit {
       }
     });
   }
+
 }

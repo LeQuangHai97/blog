@@ -54,9 +54,9 @@ export class UsersService {
     return user;
   }
 
-  async loginUser(username: string, password: string): Promise<string> {
+  async loginUser(username: string, password: string): Promise<User> {
     try {
-      const user = await this.userModel.findOne({ username });
+      const user = await this.userModel.findOne({ username }).exec();
       if (!user) {
         throw new NotFoundException('User not found');
       }

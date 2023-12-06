@@ -3,13 +3,16 @@ import {
   Controller,
   HttpCode,
   Post,
+  Get,
   UsePipes,
   ValidationPipe,
+  Req,
 } from '@nestjs/common';
 import { UsersService } from './user.service';
 import { User } from './schema/users.model';
 import * as bcrypt from 'bcrypt';
 import { RegisterDto } from 'src/auth/dto/register.dto';
+import * as jwt from 'jsonwebtoken';
 
 @Controller()
 export class UsersController {
@@ -53,4 +56,11 @@ export class UsersController {
     const token = await this.usersService.loginUser(username, password);
     return { message: 'Login successful', access_token: token };
   }
+
+  // @Get('profile')
+  // getProfile(@Req() req) {
+  //   const token = req.headers['authorization'];
+  //   const decoded = jwt.decode(token);
+  //   return decoded;
+  // }
 }
