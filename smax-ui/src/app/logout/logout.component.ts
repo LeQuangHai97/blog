@@ -13,9 +13,6 @@ export class LogoutComponent {
   }
 
   logout() {
-    this.authService.logout().subscribe(()=>{
-      console.log('123')
-      this.router.navigate(['/'])
-    });
+    this.authService.logout()
   }
 }

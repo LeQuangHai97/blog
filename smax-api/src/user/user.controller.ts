@@ -7,12 +7,14 @@ import {
   UsePipes,
   ValidationPipe,
   Req,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './user.service';
 import { User } from './schema/users.model';
 import * as bcrypt from 'bcrypt';
 import { RegisterDto } from 'src/auth/dto/register.dto';
 import * as jwt from 'jsonwebtoken';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller()
 export class UsersController {
@@ -48,19 +50,18 @@ export class UsersController {
   //   return this.usersService.create(user);
   // }
 
-  @Post('/login')
-  async loginUser(
-    @Body() body: { username: string; password: string },
-  ): Promise<{ message: string; access_token: string }> {
-    const { username, password } = body;
-    const token = await this.usersService.loginUser(username, password);
-    return { message: 'Login successful', access_token: token };
-  }
+  // @Post('/login')
+  // async loginUser(
+  //   @Body() body: { username: string; password: string },
+  // ): Promise<{ message: string; access_token: string }> {
+  //   const { username, password } = body;
+  //   const token = await this.usersService.loginUser(username, password);
+  //   return { message: 'Login successful', access_token: token };
+  // }
 
+  // @UseGuards(AuthGuard)
   // @Get('profile')
-  // getProfile(@Req() req) {
-  //   const token = req.headers['authorization'];
-  //   const decoded = jwt.decode(token);
-  //   return decoded;
+  // getProfile(@Req() req: any) {
+  //   return req.user;
   // }
 }
