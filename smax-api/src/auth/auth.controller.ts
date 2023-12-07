@@ -2,10 +2,11 @@ import {
   Body,
   Controller,
   Post,
-  Get,
+  UsePipes,
   Req,
   UseGuards,
   Request,
+  ValidationPipe,
 } from '@nestjs/common';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { BlacklistService } from './blacklist.service';
@@ -13,13 +14,29 @@ import { AuthGuard } from '@nestjs/passport';
 import { UsersService } from 'src/user/user.service';
 import { RolesGuard } from './guards/roles.guard';
 import { Roles } from './decorators/roles.decorator';
+import { signUpDto } from './dto/signup.dto';
+import { AuthService } from './auth.service';
+import { LoginDto } from './dto/login.dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(
     private readonly blacklistService: BlacklistService,
     private usersService: UsersService,
+    private authService: AuthService,
   ) {}
+
+  @Post('/signup')
+  @UsePipes(ValidationPipe)
+  signup(@Body() signUpDto: signUpDto): Promise<{ token: string }> {
+    return this.authService.signUp(signUpDto);
+  }
+
+  @Post('/login')
+  @UsePipes(ValidationPipe)
+  login(@Body() loginUpDto: LoginDto): Promise<{ token: string }> {
+    return this.authService.login(loginUpDto);
+  }
 
   @Post('logout')
   @UseGuards(AuthGuard('jwt'))
@@ -33,12 +50,15 @@ export class AuthController {
     return { message: 'Logout successful.' };
   }
 
-  @Post('/login')
-  async loginUser(
-    @Body() body: { username: string; password: string },
-  ): Promise<{ message: string; access_token: string }> {
-    const { username, password } = body;
-    const token = await this.usersService.loginUser(username, password);
-    return { message: 'Login successful', access_token: token };
-  }
+  // @Post('/login')
+  // async loginUser(
+  //   @Body() body: { username: string; password: string },
+  // ): Promise<{ message: string; access_token: string }> {
+  //   const { username, password } = body;
+  //   const token = await this.usersService.loginUser(username, password);
+  //   return { message: 'Login successful', access_token: token };
+  // }
+
+  
+
 }

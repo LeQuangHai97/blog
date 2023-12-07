@@ -6,13 +6,14 @@ import {
   Param,
   Post,
   Put,
-  UseGuards,
   Req,
+  UseGuards,
 } from '@nestjs/common';
 import { SmaxApiService } from './smax-api.service';
 import { SmaxApiS } from './schema/smax-api.schema';
-import { AuthGuard } from '@nestjs/passport';
 import { CreatePostDto } from './dto/create-post.dto';
+import { AuthGuard } from '@nestjs/passport';
+// import { Query as ExpressQuery } from 'express-serve-static-core';
 
 @Controller('smax-api')
 export class SmaxApiController {
@@ -23,11 +24,16 @@ export class SmaxApiController {
     return this.smaxApiService.getAll();
   }
 
+  // @Get()
+  // async getAllPost(@Query() query: ExpressQuery): Promise<SmaxApiS[]> {
+  //   return this.smaxApiService.findAll(query);
+  // }
+
   @Post()
-//   @UseGuards(AuthGuard())
+  // @UseGuards(AuthGuard())
   async create(@Body() post: CreatePostDto, @Req() req): Promise<SmaxApiS> {
     console.log(req.user);
-    return this.smaxApiService.create(post);
+    return this.smaxApiService.create(post, req.user);
   }
 
   @Get('/:id')

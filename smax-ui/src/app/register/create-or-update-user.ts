@@ -1,6 +1,6 @@
 export interface CreateOrUpdateUser {
     username: string;
-    password: string;
     email: string;
+    password: string;
     role: string;
 }

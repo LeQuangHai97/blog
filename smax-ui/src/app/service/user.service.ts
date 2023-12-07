@@ -12,7 +12,7 @@ export class UserService {
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {}
 
   create(user: CreateOrUpdateUser) {
-    return this.http.post('http://localhost:3000/signup', user);
+    return this.http.post('http://localhost:3000/auth/signup', user);
   }
 
   // login(user: LoginUser) {

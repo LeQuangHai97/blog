@@ -1,4 +1,4 @@
 export const secretKey = {
-  secret: ' hai',
+  secret: 'hai',
   expires: '1h'
 };

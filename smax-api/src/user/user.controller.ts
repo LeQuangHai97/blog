@@ -24,10 +24,6 @@ export class UsersController {
   @HttpCode(200)
   @UsePipes(ValidationPipe)
   async createUser(
-    // @Body('username') username: string,
-    // @Body('email') email: string,
-    // @Body('password') password: string,
-    // @Body('role') role: string,
     @Body(ValidationPipe) registerDto: RegisterDto,
   ): Promise<User> {
     const saltOrRounds = 10;
@@ -35,7 +31,6 @@ export class UsersController {
       registerDto.password,
       saltOrRounds,
     );
-    console.log(hashedPassword);
     const result = await this.usersService.createUser(
       registerDto.username,
       registerDto.email,

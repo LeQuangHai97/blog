@@ -4,6 +4,13 @@ import { User } from '../../user/schema/users.model';
 
 export type SmaxApiDocument = HydratedDocument<SmaxApiS>;
 
+export enum Category {
+  ARTIST = 'Artist',
+  SINGER = 'Singer',
+  BAND = 'Band',
+  PROTAGONIST = 'Protagonist',
+}
+
 @Schema({ collection: 'smax-api', timestamps: true })
 export class SmaxApiS {
   @Prop()
@@ -17,6 +24,9 @@ export class SmaxApiS {
 
   @Prop()
   imageUrl: string;
+
+  @Prop()
+  Category: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   user: User;

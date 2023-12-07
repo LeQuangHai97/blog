@@ -10,29 +10,27 @@ export class SmaxApiService {
     @InjectModel(SmaxApiS.name) private SmaxApiModel: Model<SmaxApiDocument>,
   ) {}
 
-    
+  async getAll(): Promise<SmaxApiS[]> {
+    return this.SmaxApiModel.find().exec();
+  }
 
-    async getAll(): Promise<SmaxApiS[]> {
-        return this.SmaxApiModel.find().exec();
-    }
+  async create(post: SmaxApiS, user: User): Promise<SmaxApiS> {
+    const data = Object.assign(post, { user: user._id });
+    const res = await this.SmaxApiModel.create(data);
+    return res;
+  }
 
-    async create(post: SmaxApiS): Promise<SmaxApiS> {
-    // const data = Object.assign(post, {user: user._id})
+  async getById(id: string) {
+    return this.SmaxApiModel.findById(id).exec();
+  }
 
-      const res = await this.SmaxApiModel.create(post)
-      return res;
-    }
+  async udpate(id: string, smaxApiS: SmaxApiS) {
+    return await this.SmaxApiModel.findByIdAndUpdate(id, smaxApiS, {
+      new: true,
+    });
+  }
 
-    async getById(id: string) {
-      return this.SmaxApiModel.findById(id).exec();
-    }
-
-    async udpate(id: string, smaxApiS:SmaxApiS) {
-      return await this.SmaxApiModel.findByIdAndUpdate(id, smaxApiS, {new: true});
-    }
-
-    async delete(id: string) {
-      return await this.SmaxApiModel.findByIdAndDelete(id);
-    }
-
+  async delete(id: string) {
+    return await this.SmaxApiModel.findByIdAndDelete(id);
+  }
 }

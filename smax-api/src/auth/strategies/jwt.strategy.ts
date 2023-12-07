@@ -6,7 +6,6 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { secretKey } from 'src/user/config';
 import { User } from 'src/user/schema/users.model';
 import { AuthService } from '../auth.service';
-import { JwtPayload } from './jwt-payload.interface'; // Tạo file này bên dưới
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -32,11 +31,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   async validate(payload) {
     const { id } = payload;
 
-    const user = await this.userModel.findById(id)
+    const user = await this.userModel.findById(id);
     if (!user) {
       throw new UnauthorizedException('Login first to access this endpoint.');
     }
     return user;
   }
-
 }

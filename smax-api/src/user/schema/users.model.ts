@@ -3,6 +3,11 @@ import { Document, HydratedDocument } from 'mongoose';
 
 export type UserDocument = HydratedDocument<User>;
 
+export enum Role {
+  ADMIN = 'Admin',
+  USER = 'User',
+}
+
 @Schema({ collection: 'users' , timestamps: true})
 export class User extends Document{
   @Prop({ unique: [true, 'Duplicate username entered']})
@@ -15,13 +20,8 @@ export class User extends Document{
   password: string;
 
   @Prop()
-  role: string;
+  Role: string;
 
-  // @Prop()
-  // area: string;
-
-  // @Prop()
-  // permissions: number;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
