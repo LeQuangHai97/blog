@@ -41,18 +41,4 @@ export class AuthController {
     const token = await this.usersService.loginUser(username, password);
     return { message: 'Login successful', access_token: token };
   }
-
-//   @Get('admin')
-//   @UseGuards()
-//   @Roles('656a7cb193dc41ad9202a0f4')
-//   getAdminData() {
-//     return 'Admin Data';
-//   }
-
-//   @Get('user')
-//   @UseGuards()
-//   @Roles('656a7f3c93dc41ad9202a0fa')
-//   getUserData() {
-//     return 'User Data';
-//   }
 }

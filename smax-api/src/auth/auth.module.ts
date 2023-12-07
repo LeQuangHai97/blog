@@ -12,19 +12,27 @@ import { UserModule } from '../user/user.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from 'src/user/schema/users.model';
 import { JwtStrategy } from './strategies/jwt.strategy';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
+    PassportModule.register({ defaultStrategy: 'jwt' }),
+    JwtModule.registerAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => {
+        return {
+          secret: secretKey.secret,
+          signOptions: {
+            expiresIn: secretKey.expires,
+          },
+        };
+      },
+    }),
     UserModule,
     MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
-    PassportModule.register({ defaultStrategy: 'jwt' }),
-    JwtModule.register({
-      secret: secretKey.secret, // Thay thế bằng khóa bí mật thực tế của bạn
-      signOptions: { expiresIn: '1h' },
-    }),
   ],
+  controllers: [AuthController],
   providers: [AuthService, BlacklistService, UsersService, JwtStrategy],
   exports: [BlacklistService, PassportModule, JwtModule],
-  controllers: [AuthController],
 })
 export class AuthModule {}

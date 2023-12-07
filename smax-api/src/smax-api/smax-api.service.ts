@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { User } from '../user/schema/users.model';
 import { SmaxApiDocument, SmaxApiS } from './schema/smax-api.schema';
 
 @Injectable()
@@ -15,9 +16,11 @@ export class SmaxApiService {
         return this.SmaxApiModel.find().exec();
     }
 
-    async create(smaxApiS: SmaxApiS ) {
-      const newSmaxApis = new this.SmaxApiModel(smaxApiS)
-      return newSmaxApis.save();
+    async create(post: SmaxApiS): Promise<SmaxApiS> {
+    // const data = Object.assign(post, {user: user._id})
+
+      const res = await this.SmaxApiModel.create(post)
+      return res;
     }
 
     async getById(id: string) {

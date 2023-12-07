@@ -22,10 +22,24 @@
               type="text"
               id="form3Example3"
               class="form-control form-control-lg"
+              required
+              minlength="4"
               placeholder="Tên đăng nhập"
               name="name"
               [(ngModel)]="user.username"
+              #name="ngModel"
             />
+            <div
+              *ngIf="name.invalid && (name.dirty || name.touched)"
+              class="alert"
+            >
+              <div class="text-danger" *ngIf="name.errors?.['required']">
+                Tên đăng nhập không được để trống
+              </div>
+              <div *ngIf="name.errors?.['minlength']">
+                Tên đăng nhập không hợp lệ !
+              </div>
+            </div>
           </div>
 
           <!-- Password input -->
@@ -34,14 +48,23 @@
               type="password"
               id="form3Example4"
               class="form-control form-control-lg"
-              placeholder="Password"
+              required
+              placeholder="Mật khẩu"
               name="password"
               [(ngModel)]="user.password"
+              #password="ngModel"
             />
+            <div
+              *ngIf="password.invalid && (password.dirty || password.touched)"
+              class="alert"
+            >
+              <div class="text-danger" *ngIf="password.errors?.['required']">
+                Mật khẩu không được để trống
+              </div>
+            </div>
           </div>
 
-          <div class="d-flex justify-content-between align-items-center">
-            <!-- Checkbox -->
+          <!-- <div class="d-flex justify-content-between align-items-center">
             <div class="form-check mb-0">
               <input
                 class="form-check-input me-2"
@@ -50,10 +73,16 @@
                 id="form2Example3"
               />
               <label class="form-check-label" for="form2Example3">
-                Remember me
+                Lưu thông tin
               </label>
-            </div>
-            <a href="#!" class="text-body">Quên mật khẩu?</a>
+            </div> -->
+          <!-- <a href="#!" class="text-body">Quên mật khẩu?</a> -->
+          <!-- </div> -->
+          <div
+            *ngIf="loginError"
+            class="error-message text-danger mt-2 text-center"
+          >
+            {{ loginError }}
           </div>
 
           <div class="text-center text-lg-center mt-4 pt-2">
@@ -63,7 +92,7 @@
               style="padding-left: 2.5rem; padding-right: 2.5rem"
               (click)="login()"
             >
-              Login
+              Đăng nhập
             </button>
             <p class="small fw-bold mt-2 pt-1 mb-0">
               Bạn chưa có tài khoản?

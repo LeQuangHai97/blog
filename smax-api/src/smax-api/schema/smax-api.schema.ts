@@ -1,6 +1,6 @@
-/* eslint-disable prettier/prettier */
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import mongoose, { HydratedDocument } from 'mongoose';
+import { User } from '../../user/schema/users.model';
 
 export type SmaxApiDocument = HydratedDocument<SmaxApiS>;
 
@@ -17,6 +17,9 @@ export class SmaxApiS {
 
   @Prop()
   imageUrl: string;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  user: User;
 }
 
 export const SmaxApiSchema = SchemaFactory.createForClass(SmaxApiS);

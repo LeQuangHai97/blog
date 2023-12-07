@@ -27,11 +27,11 @@ export class AuthService {
   }
 
   login(user: LoginUser): Observable<any> {
-    this.isLoggedIn$.next(true);
     return this.http.post(`${this.baseUrl}/auth/login`, user).pipe(
       tap(
         (response: any) => {
           if (response && response.access_token) {
+            this.isLoggedIn$.next(true);
             const { message, access_token, username } = response;
             localStorage.setItem('access_token', response.access_token);
             const decodedToken = this.jwtHelper.decodeToken(access_token);
