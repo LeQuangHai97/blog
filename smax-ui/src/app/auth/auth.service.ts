@@ -60,6 +60,7 @@ export class AuthService {
           if (response && response.token) {
             this.isLoggedIn$.next(true);
             const { token } = response;
+            localStorage.setItem('username', response.userReal.username);
             localStorage.setItem('token', response.token);
             const decodedToken = this.jwtHelper.decodeToken(token);
             if (decodedToken) {
@@ -91,6 +92,7 @@ export class AuthService {
   logout(): Observable<any> {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('token');
+    localStorage.removeItem('username');
     this.isLoggedIn$.next(false);
     this.router.navigate(['/']);
     return this.http.post(`${this.baseUrl}/auth/logout`, {});

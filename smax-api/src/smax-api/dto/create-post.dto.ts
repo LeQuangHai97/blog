@@ -26,8 +26,7 @@ export class CreatePostDto {
   @IsString()
   readonly Category: string;
 
-  @IsEmpty({ message: "You cannot pass user id" })
-  readonly user: User;
-
+  // @IsEmpty({ message: "You cannot pass user id" })
+  // readonly user: User;
  
 }

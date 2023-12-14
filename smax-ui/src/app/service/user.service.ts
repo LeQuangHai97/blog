@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CreateOrUpdateUser } from '../register/create-or-update-user';
-import { LoginUser } from '../login/login-user';
-import { tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
@@ -38,4 +37,20 @@ export class UserService {
   //     )
   //   );
   // }
+
+  private currentUserSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+
+  // Public observable to subscribe to changes in the current user
+  currentUser$: Observable<any> = this.currentUserSubject.asObservable();
+
+  // Method to set the current user
+  setCurrentUser(user: any): void {
+    this.currentUserSubject.next(user);
+  }
+
+  // Method to get the current user's ID
+  getCurrentUserId(): string {
+    const currentUser = this.currentUserSubject.value;
+    return currentUser ? currentUser.id : '';
+  }
 }

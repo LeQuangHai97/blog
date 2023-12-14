@@ -3,4 +3,5 @@ export interface CreateOrUpdateSmax {
     powers: string;
     franchise: string;
     imageUrl: string;
+    // authorId: string;
 }

@@ -13,13 +13,14 @@ import { SmaxApiService } from './smax-api.service';
 import { SmaxApiS } from './schema/smax-api.schema';
 import { CreatePostDto } from './dto/create-post.dto';
 import { AuthGuard } from '@nestjs/passport';
+// import { LoginGuard } from 'src/auth/guards/login.guard';
 // import { Query as ExpressQuery } from 'express-serve-static-core';
 
 @Controller('smax-api')
 export class SmaxApiController {
   constructor(private smaxApiService: SmaxApiService) {}
 
-  @Get()
+  @Get('/show')
   async getAll() {
     return this.smaxApiService.getAll();
   }
@@ -29,12 +30,19 @@ export class SmaxApiController {
   //   return this.smaxApiService.findAll(query);
   // }
 
-  @Post()
+  @Post('/create')
   // @UseGuards(AuthGuard())
-  async create(@Body() post: CreatePostDto, @Req() req): Promise<SmaxApiS> {
-    console.log(req.user);
-    return this.smaxApiService.create(post, req.user);
+  // @UseGuards(LoginGuard)
+  async create(@Body() post: CreatePostDto): Promise<SmaxApiS> {
+    return this.smaxApiService.create(post);
   }
+
+  // @Post('/create')
+  // async create(@Body() post: CreatePostDto, @Req() req): Promise<SmaxApiS> {
+  //   const user = req.user;
+  //   console.log(user);
+  //   return this.smaxApiService.create(post, user);
+  // }
 
   @Get('/:id')
   async getById(@Param('id') id: string) {

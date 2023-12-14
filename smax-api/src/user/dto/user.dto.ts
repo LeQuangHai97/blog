@@ -1,16 +1,19 @@
+import { Expose } from 'class-transformer';
 import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
 
-export class signUpDto {
+export class UserDto {
+  @Expose()
   @IsNotEmpty()
   @IsString()
   readonly username: string;
 
+  @Expose()
   @IsNotEmpty()
-  @IsEmail({}, { message: 'Please enter correct email' })
+  @IsEmail()
   readonly email: string;
 
+  @Expose()
   @IsNotEmpty()
   @IsString()
-  @MinLength(6)
-  password: string;
+  readonly role: string;
 }

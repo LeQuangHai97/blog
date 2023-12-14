@@ -6,6 +6,7 @@ import { EditSmaxComponent } from './smax/edit-smax/edit-smax.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { LogoutComponent } from './logout/logout.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
   {
     path: 'add-smax',
     component: AddSmaxComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'edit-smax/:id',

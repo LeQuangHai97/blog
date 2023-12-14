@@ -28,8 +28,8 @@ export class SmaxApiS {
   @Prop()
   Category: string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-  user: User;
+  // @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  // user: User;
 }
 
 export const SmaxApiSchema = SchemaFactory.createForClass(SmaxApiS);
