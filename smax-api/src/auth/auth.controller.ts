@@ -14,7 +14,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { UsersService } from 'src/user/user.service';
 import { RolesGuard } from './guards/roles.guard';
 import { Roles } from './decorators/roles.decorator';
-import { signUpDto } from './dto/signup.dto';
+import { SignUpDto } from './dto/signup.dto';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 
@@ -28,13 +28,13 @@ export class AuthController {
 
   @Post('/signup')
   @UsePipes(ValidationPipe)
-  signup(@Body() signUpDto: signUpDto): Promise<{ token: string }> {
+  signup(@Body() signUpDto: SignUpDto) {
     return this.authService.signUp(signUpDto);
   }
 
   @Post('/login')
   @UsePipes(ValidationPipe)
-  login(@Body() loginUpDto: LoginDto): Promise<{ token: string }> {
+  login(@Body() loginUpDto: LoginDto) {
     return this.authService.login(loginUpDto);
   }
 

@@ -30,7 +30,7 @@ export class SmaxApiController {
   // }
 
   @Post()
-  // @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   async create(@Body() post: CreatePostDto, @Req() req): Promise<SmaxApiS> {
     console.log(req.user);
     return this.smaxApiService.create(post, req.user);

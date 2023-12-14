@@ -57,14 +57,15 @@ export class AuthService {
     return this.http.post(`${this.baseUrl}/auth/login`, user).pipe(
       tap(
         (response: any) => {
-          if (response && response.token) {
+          if (response && response.accessToken) {
             this.isLoggedIn$.next(true);
-            const { token } = response;
-            localStorage.setItem('token', response.token);
-            const decodedToken = this.jwtHelper.decodeToken(token);
+            const { accessToken } = response;
+            console.log()
+            localStorage.setItem('token', response.accessToken);
+            const decodedToken = this.jwtHelper.decodeToken(accessToken);
             if (decodedToken) {
               localStorage.setItem('currentUser', JSON.stringify(decodedToken));
-              this.isLoggedIn$.next(true);  
+              this.isLoggedIn$.next(true);
             } else {
               console.error('Failed to decode token.');
             }

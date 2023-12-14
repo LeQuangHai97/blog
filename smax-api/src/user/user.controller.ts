@@ -13,12 +13,21 @@ import { UsersService } from './user.service';
 import { User } from './schema/users.model';
 import * as bcrypt from 'bcrypt';
 import { RegisterDto } from 'src/auth/dto/register.dto';
-import * as jwt from 'jsonwebtoken';
 import { AuthGuard } from '@nestjs/passport';
+import { Request } from 'express';
+import { MyJwtGuard } from 'src/auth/guards';
+import { GetUser } from 'src/auth/decorators';
 
-@Controller()
+@Controller('user')
 export class UsersController {
   constructor(private usersService: UsersService) {}
+
+  // @UseGuards(AuthGuard('jwt'))
+  @UseGuards(MyJwtGuard)
+  @Get('me')
+  me(@GetUser() user: User) {
+    return user;
+  }
 
   @Post('/signup')
   @HttpCode(200)

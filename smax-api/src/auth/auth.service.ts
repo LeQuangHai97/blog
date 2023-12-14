@@ -4,11 +4,11 @@ import { JwtService } from '@nestjs/jwt';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { User, UserDocument } from 'src/user/schema/users.model';
+import { User } from 'src/user/schema/users.model';
 import { UsersService } from 'src/user/user.service';
-import { signUpDto } from './dto/signup.dto';
+import { SignUpDto } from './dto/signup.dto';
 import { LoginDto } from './dto/login.dto';
-
+import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class AuthService {
   constructor(
@@ -16,9 +16,10 @@ export class AuthService {
     private userModel: Model<User>,
     private userService: UsersService,
     private jwtService: JwtService,
+    private configService: ConfigService,
   ) {}
 
-  async signUp(signUpDto: signUpDto): Promise<{ token: string }> {
+  async signUp(signUpDto: SignUpDto) {
     const { username, email, password } = signUpDto;
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await this.userModel.create({
@@ -26,28 +27,21 @@ export class AuthService {
       email,
       password: hashedPassword,
     });
-    const token = this.jwtService.sign({ id: user._id });
-    return { token };
+    return await this.signJwtToken(user.id, user.username);
   }
 
-  async login(loginDto: LoginDto): Promise<{ token: string }> {
+  async login(loginDto: LoginDto) {
     const { username, password } = loginDto;
-
     const user = await this.userModel.findOne({ username });
-
     if (!user) {
       throw new UnauthorizedException('Invalid username or password');
     }
-
     const isPassWordMatched = await bcrypt.compare(password, user.password);
-
     if (!isPassWordMatched) {
       throw new UnauthorizedException('Invalid username or password');
     }
 
-    const token = this.jwtService.sign({ id: user._id });
-
-    return { token };
+    return await this.signJwtToken(user.id, user.username);
   }
 
   async validateUserById(id: string) {
@@ -56,5 +50,22 @@ export class AuthService {
       throw new NotFoundException('User not found');
     }
     return user;
+  }
+
+  async signJwtToken(
+    userId: string,
+    username: string,
+  ): Promise<{ accessToken: string }> {
+    const payload = {
+      sub: userId,
+      username,
+    };
+    const jwtString = await this.jwtService.signAsync(payload, {
+      expiresIn: '10m',
+      secret: this.configService.get('JWT_SECRET'),
+    });
+    return {
+      accessToken: jwtString,
+    };
   }
 }
