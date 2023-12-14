@@ -9,6 +9,7 @@ import { UsersService } from 'src/user/user.service';
 import { UserModule } from '../user/user.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from 'src/user/schema/users.model';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [

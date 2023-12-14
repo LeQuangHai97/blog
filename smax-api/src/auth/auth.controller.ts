@@ -32,6 +32,7 @@ export class AuthController {
     return this.authService.signUp(signUpDto);
   }
 
+
   @Post('/login')
   @UsePipes(ValidationPipe)
   login(@Body() loginUpDto: LoginDto) {

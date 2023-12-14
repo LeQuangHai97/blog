@@ -22,6 +22,7 @@ export class EditSmaxComponent implements OnInit {
     imageUrl: '',
     name: '',
     powers: '',
+    // authorId: ''
   };
 
   ngOnInit(): void {

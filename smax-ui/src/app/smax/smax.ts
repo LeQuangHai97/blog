@@ -4,4 +4,5 @@ export interface Smax {
     powers: string;
     franchise: string;
     imageUrl: string;
+    _authorId: string;
 }

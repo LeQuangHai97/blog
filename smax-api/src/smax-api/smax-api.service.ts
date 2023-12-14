@@ -7,16 +7,19 @@ import { SmaxApiDocument, SmaxApiS } from './schema/smax-api.schema';
 @Injectable()
 export class SmaxApiService {
   constructor(
-    @InjectModel(SmaxApiS.name) private SmaxApiModel: Model<SmaxApiDocument>,
+    @InjectModel(SmaxApiS.name) private readonly SmaxApiModel: Model<SmaxApiDocument>,
   ) {}
 
   async getAll(): Promise<SmaxApiS[]> {
     return this.SmaxApiModel.find().exec();
   }
 
-  async create(post: SmaxApiS, user: User): Promise<SmaxApiS> {
-    const data = Object.assign(post, { user: user._id });
-    const res = await this.SmaxApiModel.create(data);
+  async create(post: SmaxApiS): Promise<SmaxApiS> {
+    // if (!user || !user._id) {
+    //   throw new Error('Invalid user information.');
+    // }
+    // const data = Object.assign(post, { user: user._id });
+    const res = await this.SmaxApiModel.create(post);
     return res;
   }
 
