@@ -3,7 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { SmaxApiS, SmaxApiSchema } from './schema/smax-api.schema';
 import { SmaxApiService } from './smax-api.service';
 import { SmaxApiController } from './smax-api.controller';
-import { AuthModule } from 'src/auth/auth.module';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
     imports: [

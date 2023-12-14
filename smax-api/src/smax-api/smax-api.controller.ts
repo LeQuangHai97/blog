@@ -30,27 +30,26 @@ export class SmaxApiController {
   //   return this.smaxApiService.findAll(query);
   // }
 
-<<<<<<< HEAD
-  @Post()
-  @UseGuards(AuthGuard('jwt'))
-  async create(@Body() post: CreatePostDto, @Req() req): Promise<SmaxApiS> {
-    console.log(req.user);
-    return this.smaxApiService.create(post, req.user);
-=======
-  @Post('/create')
-  // @UseGuards(AuthGuard())
-  // @UseGuards(LoginGuard)
-  async create(@Body() post: CreatePostDto): Promise<SmaxApiS> {
-    return this.smaxApiService.create(post);
->>>>>>> 0d570bdc8795b550f75a32bdd54c011b9b20fe66
-  }
+
+  // @Post()
+  // @UseGuards(AuthGuard('jwt'))
+  // async create(@Body() post: CreatePostDto, @Req() req): Promise<SmaxApiS> {
+  //   console.log(req.user);
+  //   return this.smaxApiService.create(post, req.user);
 
   // @Post('/create')
-  // async create(@Body() post: CreatePostDto, @Req() req): Promise<SmaxApiS> {
-  //   const user = req.user;
-  //   console.log(user);
-  //   return this.smaxApiService.create(post, user);
+  // @UseGuards(AuthGuard())
+  // @UseGuards(LoginGuard)
+  // async create(@Body() post: CreatePostDto): Promise<SmaxApiS> {
+  //   return this.smaxApiService.create(post);
   // }
+
+  @Post('/create')
+  async create(@Body() post: CreatePostDto, @Req() req): Promise<SmaxApiS> {
+    const user = req.user;
+    console.log(user);
+    return this.smaxApiService.create(post);
+  }
 
   @Get('/:id')
   async getById(@Param('id') id: string) {

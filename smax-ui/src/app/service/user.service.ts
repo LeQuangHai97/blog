@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { CreateOrUpdateUser } from '../register/create-or-update-user';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
-
+import { User } from '../user/user'
 @Injectable({
   providedIn: 'root',
 })
@@ -12,6 +12,10 @@ export class UserService {
 
   create(user: CreateOrUpdateUser) {
     return this.http.post('http://localhost:3000/auth/signup', user);
+  }
+
+  getById(id: string) {
+    return this.http.get<User>(`http://localhost:3000/user/${id}`);
   }
 
   // login(user: LoginUser) {

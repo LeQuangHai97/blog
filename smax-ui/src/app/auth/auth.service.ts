@@ -59,17 +59,17 @@ export class AuthService {
         (response: any) => {
           if (response && response.accessToken) {
             this.isLoggedIn$.next(true);
-<<<<<<< HEAD
+
             const { accessToken } = response;
             console.log()
             localStorage.setItem('token', response.accessToken);
             const decodedToken = this.jwtHelper.decodeToken(accessToken);
-=======
-            const { token } = response;
-            localStorage.setItem('username', response.userReal.username);
-            localStorage.setItem('token', response.token);
-            const decodedToken = this.jwtHelper.decodeToken(token);
->>>>>>> 0d570bdc8795b550f75a32bdd54c011b9b20fe66
+
+            // const { token } = response;
+            // localStorage.setItem('username', response.userReal.username);
+            // localStorage.setItem('token', response.token);
+            // const decodedToken = this.jwtHelper.decodeToken(token);
+
             if (decodedToken) {
               localStorage.setItem('currentUser', JSON.stringify(decodedToken));
               this.isLoggedIn$.next(true);

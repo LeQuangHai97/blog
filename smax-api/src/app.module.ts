@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthMiddleware } from './auth/middleware/auth.middleware';
 import { PassportModule } from '@nestjs/passport';
+import { BlacklistService } from './auth/blacklist.service';
 // import { LoginGuard } from './auth/guards/login.guard';
 
 @Module({
@@ -19,7 +20,8 @@ import { PassportModule } from '@nestjs/passport';
     SmaxApiModule,
     ConfigModule.forRoot({ isGlobal: true }),
     UserModule,
-    AuthModule
+    AuthModule,
+    BlacklistService
   ],
   controllers: [AppController],
   providers: [
