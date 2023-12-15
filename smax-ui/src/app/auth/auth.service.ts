@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   private baseUrl = 'http://localhost:3000';
-
+  private token: string | null = null;
   isLoggedIn$ = new BehaviorSubject<boolean>(false);
 
   get isLoggedIn(): Observable<boolean> {
@@ -26,50 +26,16 @@ export class AuthService {
     this.isLoggedIn$ = new BehaviorSubject<boolean>(!!storedUser);
   }
 
-  // login(user: LoginUser): Observable<any> {
-  //   return this.http.post(`${this.baseUrl}/auth/login`, user).pipe(
-  //     tap(
-  //       (response: any) => {
-  //         if (response && response.access_token) {
-  //           this.isLoggedIn$.next(true);
-  //           const { message, access_token, username } = response;
-  //           localStorage.setItem('access_token', response.access_token);
-  //           const decodedToken = this.jwtHelper.decodeToken(access_token);
-  //           if (decodedToken) {
-  //             localStorage.setItem('currentUser', JSON.stringify(decodedToken));
-  //             this.isLoggedIn$.next(true);
-  //           } else {
-  //             console.error('Failed to decode token.');
-  //           }
-  //         } else {
-  //           console.error('Invalid response format.');
-  //         }
-  //       },
-  //       (error) => {
-  //         console.error('Login failed', error);
-  //         // Xử lý lỗi đăng nhập
-  //       }
-  //     )
-  //   );
-  // }
-
   login(user: LoginUser): Observable<any> {
     return this.http.post(`${this.baseUrl}/auth/login`, user).pipe(
       tap(
         (response: any) => {
           if (response && response.accessToken) {
             this.isLoggedIn$.next(true);
-
             const { accessToken } = response;
             console.log()
             localStorage.setItem('token', response.accessToken);
             const decodedToken = this.jwtHelper.decodeToken(accessToken);
-
-            // const { token } = response;
-            // localStorage.setItem('username', response.userReal.username);
-            // localStorage.setItem('token', response.token);
-            // const decodedToken = this.jwtHelper.decodeToken(token);
-
             if (decodedToken) {
               localStorage.setItem('currentUser', JSON.stringify(decodedToken));
               this.isLoggedIn$.next(true);
@@ -88,14 +54,6 @@ export class AuthService {
     );
   }
 
-  // logout(): Observable<any> {
-  //   localStorage.removeItem('currentUser');
-  //   localStorage.removeItem('access_token');
-  //   this.isLoggedIn$.next(false);
-  //   this.router.navigate(['/']);
-  //   return this.http.post(`${this.baseUrl}/auth/logout`, {});
-  // }
-
   logout(): Observable<any> {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('token');
@@ -103,5 +61,14 @@ export class AuthService {
     this.isLoggedIn$.next(false);
     this.router.navigate(['/']);
     return this.http.post(`${this.baseUrl}/auth/logout`, {});
+  }
+
+  setToken(token: string): void {
+    this.token = token;
+    localStorage.setItem('token', token);
+  }
+
+  getToken(): string | null {
+    return this.token || localStorage.getItem('token');
   }
 }

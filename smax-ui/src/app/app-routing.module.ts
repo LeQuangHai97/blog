@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { LogoutComponent } from './logout/logout.component';
 import { AuthGuard } from './auth/auth.guard';
+import { UserComponent } from './user/user.component';
 
 const routes: Routes = [
   {
@@ -16,7 +17,7 @@ const routes: Routes = [
   {
     path: 'add-smax',
     component: AddSmaxComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: 'edit-smax/:id',
@@ -31,6 +32,7 @@ const routes: Routes = [
     component: RegisterComponent,
   },
   { path: 'logout', component: LogoutComponent },
+  { path: 'profile', component: UserComponent },
 ];
 
 @NgModule({

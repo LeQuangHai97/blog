@@ -21,7 +21,7 @@ import { BlacklistService } from './auth/blacklist.service';
     ConfigModule.forRoot({ isGlobal: true }),
     UserModule,
     AuthModule,
-    BlacklistService
+    // BlacklistService
   ],
   controllers: [AppController],
   providers: [

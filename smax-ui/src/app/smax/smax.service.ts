@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Smax } from './smax';
 import { CreateOrUpdateSmax } from './create-or-update-smax';
-import { UserService } from '../service/user.service';
+import { UserService } from '../user/user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +25,7 @@ export class SmaxService {
   }
 
   create(smax: CreateOrUpdateSmax) {
-    return this.http.post('http://localhost:3000/smax-api/create', smax);
+    return this.http.post(`${this.apiUrl}/smax-api/create`, smax);
   }
 
   // create(smax: CreateOrUpdateSmax) {
@@ -53,14 +53,14 @@ export class SmaxService {
   // }
 
   getById(id: string) {
-    return this.http.get<Smax>(`http://localhost:3000/smax-api/${id}`);
+    return this.http.get<Smax>(`${this.apiUrl}/smax-api/${id}`);
   }
 
   update(id: string, smax: CreateOrUpdateSmax) {
-    return this.http.put<Smax>(`http://localhost:3000/smax-api/${id}`, smax);
+    return this.http.put<Smax>(`${this.apiUrl}/smax-api/${id}`, smax);
   }
 
   delete(id: string) {
-    return this.http.delete<Smax>(`http://localhost:3000/smax-api/${id}`);
+    return this.http.delete<Smax>(`${this.apiUrl}/smax-api/${id}`);
   }
 }

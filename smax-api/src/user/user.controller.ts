@@ -29,6 +29,11 @@ export class UsersController {
     return user;
   }
 
+  // @Get('profile')
+  // getProfile(@Req() req) {
+  //   return req['user']; //
+  // }
+
   @Post('/signup')
   @HttpCode(200)
   @UsePipes(ValidationPipe)

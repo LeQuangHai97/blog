@@ -21,9 +21,10 @@ export class NavbarComponent implements OnInit {
     this.authService.isLoggedIn.subscribe((loggedIn) => {
       if (loggedIn) {
         // Đã đăng nhập, cập nhật thông tin người dùng
-        const username = localStorage.getItem('username');
-        if (username !== null) {
-          this.username = localStorage.getItem('username');
+        const currentUserString = localStorage.getItem('currentUser');
+        if (currentUserString !== null) {
+          const currentUser = JSON.parse(currentUserString);
+          this.username = currentUser.username;
         }
       }
     });

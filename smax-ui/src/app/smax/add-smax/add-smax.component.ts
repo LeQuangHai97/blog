@@ -3,7 +3,7 @@ import { CreateOrUpdateSmax } from '../create-or-update-smax';
 import { SmaxService } from '../smax.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
-import { UserService } from 'src/app/service/user.service';
+import { UserService } from 'src/app/user/user.service';
 
 @Component({
   selector: 'app-add-smax',

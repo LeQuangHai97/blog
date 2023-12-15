@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <a class="navbar-brand" href="#">All Star</a>
     <div *ngIf="isLoggedIn$ | async">
-      <p class="text-light">Welcome, {{ username }}!</p>
+      <p class="text-light">Welcome, <a routerLink="/profile">{{ username }}!</a></p>
     </div>
     <div class="">
       <button
